@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<InvariantGlobalization>false</InvariantGlobalization>
+		<SpaRoot>..\..\frontend\sparda.client</SpaRoot>
+		<SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
+		<SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
+		<UserSecretsId>4ce7c224-d8b9-4c6d-876d-ccdb87f93010</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Models\**" />
+	  <Compile Remove="Roles\**" />
+	  <Content Remove="Models\**" />
+	  <Content Remove="Roles\**" />
+	  <EmbeddedResource Remove="Models\**" />
+	  <EmbeddedResource Remove="Roles\**" />
+	  <None Remove="Models\**" />
+	  <None Remove="Roles\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.SpaProxy">
+			<Version>9.0.4</Version>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="9.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.4" />
+		<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+		<PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="SonarAnalyzer.CSharp" Version="9.26.0.92422">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BookStore.Application\BookStore.Application.csproj" />
+	  <ProjectReference Include="..\BookStore.Contracts\BookStore.Contracts.csproj" />
+	  <ProjectReference Include="..\BookStore.Infrastructure\BookStore.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
+
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties appsettings_1json__JsonSchema="https://deta.space/assets/spacefile.schema.json" />
+		</VisualStudio>
+	</ProjectExtensions>
+
+
+
+
+</Project>

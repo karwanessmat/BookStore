@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Abstractions\Data\**" />
+    <Compile Remove="TemplateForEntity - Copy\**" />
+    <EmbeddedResource Remove="Abstractions\Data\**" />
+    <EmbeddedResource Remove="TemplateForEntity - Copy\**" />
+    <None Remove="Abstractions\Data\**" />
+    <None Remove="TemplateForEntity - Copy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\karwa\.nuget\packages\sqltoobjectify\2.0.0\contentFiles\any\net8.0\logo.ico" />
+    <Content Remove="C:\Users\PC\.nuget\packages\sqltoobjectify\2.0.0\contentFiles\any\net8.0\logo.ico" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
+		<PackageReference Include="FFMpegCore" Version="5.2.0" />
+		<PackageReference Include="FluentValidation" Version="11.11.0" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+		<PackageReference Include="MediatR" Version="12.5.0" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
+		<PackageReference Include="Serilog" Version="4.2.0" />
+		<PackageReference Include="SqlToObjectify" Version="2.0.0" />
+
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.8" />
+
+		<PackageReference Include="Mapster" Version="7.4.1-pre01" />
+		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.2-pre01" />
+
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Sparda.Application.UnitTests" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <PackageReference Update="SonarAnalyzer.CSharp" Version="9.26.0.92422">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <Folder Include="Users\User\EventHandlers\" />
+	  <Folder Include="Users\User\Query\" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BookStore.Contracts\BookStore.Contracts.csproj" />
+	  <ProjectReference Include="..\BookStore.Domain\BookStore.Domain.csproj" />
+	  <ProjectReference Include="..\BookStore.SharedKernel\BookStore.SharedKernel.csproj" />
+	</ItemGroup>
+
+</Project>
