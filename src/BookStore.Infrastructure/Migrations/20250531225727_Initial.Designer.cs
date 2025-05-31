@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Infrastructure.Migrations
 {
     [DbContext(typeof(BookStoreAppContext))]
-    [Migration("20250531170908_DbInit")]
-    partial class DbInit
+    [Migration("20250531225727_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,7 +117,7 @@ namespace BookStore.Infrastructure.Migrations
                         {
                             Id = new Guid("9c9155c6-582f-431e-9c42-1e24e9c6219e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "77b8336c-b902-4462-b20c-07ecc4d67d2b",
+                            ConcurrencyStamp = "97cb39ae-1816-45df-8a2e-f46f47189a9e",
                             Email = "admin@ni.iq",
                             EmailConfirmed = true,
                             FullName = "Admin",
@@ -126,10 +126,10 @@ namespace BookStore.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@NI.IQ",
                             NormalizedUserName = "ADMIN@NI.IQ",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFU159cRY+ROu0ER5L3pc00HbAQbsvC5Ttd1uINazlB/sIuAUvWXqvfk6kZjJa45WA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELUZn/K9hBuq8n1GPFpQmP4bTiyFkq4LPbUBjneZcqaQ+a+PyWGjR8UewYKf7JNL1w==",
                             PhoneNumber = "07500000011",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fee37505-de0f-4634-9b9b-51b8b99bbd85",
+                            SecurityStamp = "225aaba3-520b-419e-99df-165deac339e4",
                             TwoFactorEnabled = false,
                             UserName = "admin@ni.iq"
                         });
@@ -189,22 +189,22 @@ namespace BookStore.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d976441c-d7a7-4d1f-b01d-01943c6ab411"),
-                            ConcurrencyStamp = "9f6ccd70-a911-4826-8042-4eadd4affdc0",
+                            Id = new Guid("56eb3f1a-c1a6-455a-a39c-fd69e11aac64"),
+                            ConcurrencyStamp = "70bd7fbe-fcb0-4a25-bdd3-b523d2bff9df",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("f7ce46fb-4dab-4142-9785-55442ddd547c"),
-                            ConcurrencyStamp = "802a8957-03bb-4d90-a17d-9473d12b0bc1",
+                            Id = new Guid("38ed2da3-4da5-4e6b-b695-79a3879550b9"),
+                            ConcurrencyStamp = "ef68225e-45b6-4bdd-9eaa-87e13bd8ece3",
                             Name = "Staff",
                             NormalizedName = "STAFF"
                         },
                         new
                         {
-                            Id = new Guid("231ee22a-da19-4576-a858-d98906336286"),
-                            ConcurrencyStamp = "ea199b4a-150d-494a-8a99-0dd69ca4bacf",
+                            Id = new Guid("64ecd975-ad9f-4085-b383-09fc0de88858"),
+                            ConcurrencyStamp = "83c401a6-35f5-42f3-8e0c-a020f7947896",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -257,6 +257,89 @@ namespace BookStore.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("RevokedTokens", "Security");
+                });
+
+            modelBuilder.Entity("BookStore.Domain.BookAuthors.Author", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<string>("Bio")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors", (string)null);
+                });
+
+            modelBuilder.Entity("BookStore.Domain.BookAuthors.Book", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BookId");
+
+                    b.Property<string>("CoverImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Isbn")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTimeOffset?>("PublishedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books", (string)null);
+                });
+
+            modelBuilder.Entity("BookStore.Domain.BookAuthors.Entities.BookAuthor", b =>
+                {
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BookId");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("AuthorId");
+
+                    b.HasKey("BookId", "AuthorId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("BookAuthors", (string)null);
                 });
 
             modelBuilder.Entity("BookStore.Infrastructure.Outbox.OutboxMessage", b =>
@@ -364,7 +447,7 @@ namespace BookStore.Infrastructure.Migrations
                         new
                         {
                             UserId = new Guid("9c9155c6-582f-431e-9c42-1e24e9c6219e"),
-                            RoleId = new Guid("d976441c-d7a7-4d1f-b01d-01943c6ab411")
+                            RoleId = new Guid("56eb3f1a-c1a6-455a-a39c-fd69e11aac64")
                         });
                 });
 
@@ -382,6 +465,21 @@ namespace BookStore.Infrastructure.Migrations
                     b.HasOne("BookStore.Domain.ApplicationUsers.Entities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookStore.Domain.BookAuthors.Entities.BookAuthor", b =>
+                {
+                    b.HasOne("BookStore.Domain.BookAuthors.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookStore.Domain.BookAuthors.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
