@@ -1,16 +1,15 @@
 ﻿using BookStore.Application.Abstractions.Helpers;
 using BookStore.Application.Abstractions.Interfaces.Persistence.Base;
 using BookStore.Application.Abstractions.Messaging;
-using BookStore.Application.BookAuthors.Books.Queries.GetBookAuthors;
 using BookStore.Contracts.Books;
-using BookStore.Domain.BookAuthors;          // Book & Author aggregates
+using BookStore.Domain.BookAuthors;
 using BookStore.SharedKernel.Abstractions;
 using BookStore.SharedKernel.Books;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+// Book & Author aggregates
 
-namespace BookStore.Application.BookAuthors.Books.Queries.GetBooks;
+namespace BookStore.Application.BookAuthors.Books.Queries.GetBookAuthors;
 
 internal sealed class GetBooksQueryHandler(
     IRepositoryManager repositoryManager,
@@ -21,17 +20,11 @@ internal sealed class GetBooksQueryHandler(
         GetBookAuthorsQuery request,
         CancellationToken cancellationToken)
     {
-        //----------------------------------------------------------
-        // 1. Base query – include authors
-        //----------------------------------------------------------
         IQueryable<Book> source = repositoryManager.Books
             .GetAllAsync()
             .AsNoTracking()
-            .Include(b => b.Authors);            // EF many-to-many
+            .Include(b => b.Authors);            
 
-        //----------------------------------------------------------
-        // 2. Search term (book title OR author name)
-        //----------------------------------------------------------
         if (!string.IsNullOrWhiteSpace(request.Parameters.SearchTerm))
         {
             string term = request.Parameters.SearchTerm.Trim()
@@ -42,17 +35,11 @@ internal sealed class GetBooksQueryHandler(
                 || b.Authors.Any(a => EF.Functions.Like(a.Name.ToLower(), $"%{term}%")));
         }
 
-        //----------------------------------------------------------
-        // 3. Filter by author gender
-        //----------------------------------------------------------
         if (request.Parameters.Gender is { } gender)
         {
             source = source.Where(b => b.Authors.Any(a => a.Gender == gender));
         }
 
-        //----------------------------------------------------------
-        // 4. Filter by availability
-        //----------------------------------------------------------
         if (request.Parameters.IsAvailable is { } isAvail)
         {
             source = isAvail
@@ -60,9 +47,6 @@ internal sealed class GetBooksQueryHandler(
                 : source.Where(b => b.StockQuantity == 0);
         }
 
-        //----------------------------------------------------------
-        // 5. Sorting
-        //----------------------------------------------------------
         BookOrderBy sort = request.Parameters.SortOrder ?? BookOrderBy.TitleAscending;
 
         source = sort switch
@@ -77,17 +61,14 @@ internal sealed class GetBooksQueryHandler(
             BookOrderBy.QuantityDescending => source.OrderByDescending(b => b.StockQuantity),
             _ => source.OrderBy(b => b.Title)
         };
-
-        //----------------------------------------------------------
-        // 6. Projection → DTO + pagination
-        //----------------------------------------------------------
+        
         var query = source.Select(b => mapper.Map<BookResponse>(b));
 
-        var page = await PagedList<BookResponse>.ToCreatePageListAsync(
+        var result = await PagedList<BookResponse>.ToCreatePageListAsync(
             query,
             request.Parameters.PageNumber,
             request.Parameters.PageSize);
 
-        return page;            // wrap in Result.Success if your convention requires it
+        return result;         
     }
 }
