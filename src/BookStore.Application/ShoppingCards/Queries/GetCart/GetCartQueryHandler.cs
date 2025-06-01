@@ -2,6 +2,7 @@
 using BookStore.Application.Abstractions.Interfaces.Persistence.Base;
 using BookStore.Application.Abstractions.Messaging;
 using BookStore.Contracts.ShoppingCards;
+using BookStore.Domain.ShoppingCards;
 using BookStore.SharedKernel.Abstractions;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,11 @@ internal sealed class GetCartQueryHandler(
         var userId = user.GetUserId;
         var cart = await repositories.Carts.GetFilteredAsync(x => x.UserId == userId, true)
             .Include(x => x.Items)
+            .ThenInclude(x=>x.Book)
             .FirstOrDefaultAsync(ct);
 
-        var dto = mapper.Map<CartResponse>(cart);
-        return dto;
+        var response = mapper.Map<CartResponse>(cart);
+
+        return Result.Success(response);
     }
 }

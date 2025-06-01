@@ -16,7 +16,7 @@ namespace BookStore.Server.Controllers.Shopping;
 [Authorize]
 [ApiVersion(ApiVersions.V1)]
 [Route("api/v{version:apiVersion}/cart")]
-public sealed class CartController(ISender sender) : ControllerBase
+public sealed class CartsController(ISender sender) : ControllerBase
 {
     // GET /cart
     [HttpGet]
@@ -31,11 +31,10 @@ public sealed class CartController(ISender sender) : ControllerBase
     public async Task<IActionResult> Add(AddCartItemRequest req, CancellationToken ct)
     {
         var cmd = new AddCartItemCommand(req);
-        var res = await sender.Send(cmd, ct);
-        return res.IsSuccess ? Ok(res.Value) : BadRequest(res.Error);
+        var result = await sender.Send(cmd, ct);
+        return result.IsFailure ? NotFound(result.Error) : Ok(result.Value);
     }
 
-    // PUT /cart/items/{id}
     [HttpPut("items/{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] int quantity, CancellationToken ct)
     {
@@ -45,7 +44,6 @@ public sealed class CartController(ISender sender) : ControllerBase
         return res.IsSuccess ? Ok() : BadRequest(res.Error);
     }
 
-    // DELETE /cart/items/{id}
     [HttpDelete("items/{id:guid}")]
     public async Task<IActionResult> Remove(Guid id, CancellationToken ct)
     {

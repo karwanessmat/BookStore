@@ -21,7 +21,7 @@ internal sealed class UpdateCartItemCommandHandler(
             .FirstOrDefaultAsync(ct);
         if (cart is null)
         {
-            return Result.Failure<Guid>(CartErrors.NotFound);
+            return Result.Failure<Guid>(CartErrors.CartNotFound);
         }
 
         cart.UpdateQuantity(

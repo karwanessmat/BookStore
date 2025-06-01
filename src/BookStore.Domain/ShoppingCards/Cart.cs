@@ -18,14 +18,17 @@ public sealed class Cart : AggregateRoot<CartId, Guid>
 
     private Cart() { }
 
-    private Cart(Guid userId, CartId? id = null)
+    private Cart(
+        DateTimeOffset createdDate,
+        Guid userId,
+        CartId? id = null)
         : base(id ?? CartId.CreateUnique())
     {
         UserId = userId;
         CreatedDate = DateTimeOffset.UtcNow;
     }
 
-    public static Cart Create(Guid userId, CartId? id = null) => new(userId, id);
+    public static Cart Create(DateTimeOffset createdDate, Guid userId, CartId? id = null) => new(createdDate, userId, id);
 
     public void AddItem(Book book, string title, decimal price, int qty = 1)
     {
