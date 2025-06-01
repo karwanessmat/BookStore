@@ -13,14 +13,3 @@ public class BookQueryParameters : QueryParameters
     public bool? IsAvailable { get; set; }
     public BookOrderBy? SortOrder { get; set; } = BookOrderBy.TitleAscending;
 }
-
-
-public class AuthorQueryParameters : QueryParameters
-{
-    public AuthorQueryParameters()
-    {
-        
-    }
-    public Gender? Gender { get; set; }
-    public AuthorOrderBy? SortOrder { get; set; } = AuthorOrderBy.NameAscending;
-}

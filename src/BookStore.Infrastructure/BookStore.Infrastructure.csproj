@@ -9,12 +9,15 @@
 	<ItemGroup>
 	  <Compile Remove="Abstractions\Middleware\**" />
 	  <Compile Remove="ApplicationUser\Role\**" />
+	  <Compile Remove="NewFolder\**" />
 	  <Compile Remove="Shared\Persistence\Configurations\x2Folder\**" />
 	  <EmbeddedResource Remove="Abstractions\Middleware\**" />
 	  <EmbeddedResource Remove="ApplicationUser\Role\**" />
+	  <EmbeddedResource Remove="NewFolder\**" />
 	  <EmbeddedResource Remove="Shared\Persistence\Configurations\x2Folder\**" />
 	  <None Remove="Abstractions\Middleware\**" />
 	  <None Remove="ApplicationUser\Role\**" />
+	  <None Remove="NewFolder\**" />
 	  <None Remove="Shared\Persistence\Configurations\x2Folder\**" />
 	</ItemGroup>
 
