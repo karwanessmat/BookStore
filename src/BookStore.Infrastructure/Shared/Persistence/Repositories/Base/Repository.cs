@@ -254,6 +254,17 @@ public class Repository<TEntity, TEntityId> : IRepository<TEntity, TEntityId>
         entry.State = EntityState.Detached;
     }
 
+    public Task<List<TResponse>> SelectData<TResponse>(FormattableString sql)
+    {
+        var connection = BookStoreAppContext
+            .Database;
+
+        var result = connection
+            .SqlQuery<TResponse>(sql)           // ← interpolated, auto-parameterised
+            .ToListAsync();
+        return result;
+    }
+
 
 
     #region Using SQL Raw

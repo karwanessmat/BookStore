@@ -46,4 +46,10 @@ public static class AuthorErrors
             "Author.DeletionFailed",
             "The author could not be deleted",
             ErrorType.Conflict);
+
+    public static readonly Error HasLinkedBooks =
+        new(
+            "Author.HasLinkedBooks",
+            "Cannot delete author: one or more books reference this author.",
+            ErrorType.Conflict);
 }

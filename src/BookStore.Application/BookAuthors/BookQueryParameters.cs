@@ -3,7 +3,7 @@ using BookStore.SharedKernel.Books;
 
 namespace BookStore.Application.BookAuthors;
 
-public class BookAuthorQueryParameters : QueryParameters
+public class BookQueryParameters : QueryParameters
 {
     public string? SearchTerm { get; set; }
     public string? Author { get; set; }
@@ -12,4 +12,15 @@ public class BookAuthorQueryParameters : QueryParameters
     public Gender? Gender { get; set; }
     public bool? IsAvailable { get; set; }
     public BookOrderBy? SortOrder { get; set; } = BookOrderBy.TitleAscending;
+}
+
+
+public class AuthorQueryParameters : QueryParameters
+{
+    public AuthorQueryParameters()
+    {
+        
+    }
+    public Gender? Gender { get; set; }
+    public AuthorOrderBy? SortOrder { get; set; } = AuthorOrderBy.NameAscending;
 }

@@ -40,6 +40,12 @@ internal sealed class GetBooksQueryHandler(
             source = source.Where(b => b.Authors.Any(a => a.Gender == gender));
         }
 
+        if (!string.IsNullOrEmpty(request.Parameters.Author))
+        {
+            var authorName = request.Parameters.Author.Trim().ToLowerInvariant();
+            source = source.Where(b => b.Authors.Any(a => a.Name.ToLower().Contains(authorName)));
+        }
+
         if (request.Parameters.IsAvailable is { } isAvail)
         {
             source = isAvail

@@ -5,7 +5,6 @@ using BookStore.SharedKernel.Books;
 
 namespace BookStore.Domain.BookAuthors;
 
-// Author.cs
 public sealed class Author : AggregateRoot<AuthorId, Guid>
 {
     public DateTimeOffset CreatedDate { get; }
@@ -13,11 +12,10 @@ public sealed class Author : AggregateRoot<AuthorId, Guid>
     public Gender Gender { get; private set; }
     public string? Bio { get; private set; }
 
-    // Domain stores only BookIds
     private readonly List<Book> _books = new();
     public IReadOnlyCollection<Book> Books => _books.AsReadOnly();
 
-    private Author() { } // EF
+    private Author() { } 
 
     private Author(DateTimeOffset created, string name,
         Gender gender, string? bio, AuthorId? id = null)
@@ -29,8 +27,11 @@ public sealed class Author : AggregateRoot<AuthorId, Guid>
         Bio = bio?.Trim();
     }
 
-    public static Author Create(DateTimeOffset created, string name,
-        Gender gender, string? bio = null,
+    public static Author Create(
+        DateTimeOffset created, 
+        string name,
+        Gender gender, 
+        string? bio = null,
         AuthorId? id = null)
     {
         if (string.IsNullOrWhiteSpace(name))

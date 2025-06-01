@@ -44,7 +44,7 @@ public sealed class Book : AggregateRoot<BookId, Guid>
         PublishedDate = published;
         Isbn = isbn?.Trim();
         CoverImageUrl = cover?.Trim();
-        _authors = authors.Distinct().ToList();
+        _authors = authors.ToList();
     }
 
     public static Book Create(

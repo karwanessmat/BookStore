@@ -15,6 +15,7 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
         builder.Property(a => a.Id)
             .HasColumnName("AuthorId")
             .HasConversion(id => id.Value, v => AuthorId.Create(v))
+            .ValueGeneratedNever()
             .IsRequired();
 
         builder.Property(a => a.CreatedDate).IsRequired();

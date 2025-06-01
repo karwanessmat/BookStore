@@ -83,6 +83,8 @@ public interface IRepository<TEntity, in TEntityId>
     /// Resolves conflicts by detaching an entity if it causes tracking issues.
     /// </summary>
     void ResolveTrackingConflict(TEntity entity);
+    Task<List<TResponse>> SelectData<TResponse>(FormattableString sql);
+
 
 
     public Task<List<TResponse>> SelectSqlQueryListAsync<TResponse>(string sqlQuery, Dictionary<string, object>? parameters = null);

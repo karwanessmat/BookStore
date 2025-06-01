@@ -1,10 +1,14 @@
-﻿using BookStore.Application.Abstractions.Interfaces.Persistence.Base;
+﻿using Azure.Core;
+using BookStore.Application.Abstractions.Interfaces.Persistence.Base;
 using BookStore.Application.Abstractions.Messaging;
+using BookStore.Contracts.Authors;
 using BookStore.Domain.BookAuthors;
 using BookStore.Domain.BookAuthors.Errors;
 using BookStore.Domain.BookAuthors.ValueObjects;
 using BookStore.SharedKernel.Abstractions;
 using BookStore.SharedKernel.Abstractions.IServices;
+using MapsterMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Application.BookAuthors.Books.Commands.CreateBook;
@@ -12,42 +16,48 @@ namespace BookStore.Application.BookAuthors.Books.Commands.CreateBook;
 internal sealed class CreateBookCommandHandler(
     IRepositoryManager repositoryManager,
     IDateTimeProvider dateTimeProvider,
-    IUnitOfWork unitOfWork) : ICommandHandler<CreateBookCommand, Guid>
+    IUnitOfWork unitOfWork,
+    IMapper mapper) : ICommandHandler<CreateBookCommand, Guid>
 {
-    public async Task<Result<Guid>> Handle(CreateBookCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateBookCommand cmd, CancellationToken cancellationToken)
     {
-        var authorIds = request.Request.AuthorIds?
-            .Select(AuthorId.Create)
-            .ToList() ?? new List<AuthorId>();
 
-        if (!authorIds.Any())
+        // 1) Grab the raw GUIDs
+        var incomingGuids = cmd.Request.AuthorIds.Select(AuthorId.Create).ToList();
+
+
+        if (!incomingGuids.Any())
             return Result.Failure<Guid>(AuthorErrors.AuthorIdRequired);
 
-        var bookAuthorLinks = await repositoryManager.Authors
-            .GetFilteredAsync(a => authorIds.Contains(a.Id))
-            .ToListAsync(cancellationToken);
+        var bookAuthorLinks = new List<Author>();
+        foreach (var id in incomingGuids)
+        {
+            var author = await repositoryManager.Authors
+                .FirstOrDefaultAsync(x =>x.Id == id, cancellationToken);
+            if (author is not null)
+            {
+                bookAuthorLinks.Add(author);
+            }
+        }
 
 
-        var authors = bookAuthorLinks
-            .DistinctBy(a => a.Id)     
-            .ToList();
-
-        if (authors.Count != authorIds.Count)
+        if (bookAuthorLinks.Count != cmd.Request.AuthorIds.Count())
             return Result.Failure<Guid>(AuthorErrors.NotFound);
 
-        var createdDate = dateTimeProvider.DefaultUtcNow;
+        // Create AuthorId value objects only when needed
+        var authorIds = cmd.Request.AuthorIds.Select(AuthorId.Create).ToList();
 
-        // 2) Call Book.Create with createdDate first, then all other fields from the command.
+
         var book = Book.Create(
             created: dateTimeProvider.DefaultUtcNow,
-            title: request.Request.Title,
-            price: request.Request.Price,
-            stockQuantity: request.Request.StockQuantity,
-            authors: authors,
-            description: request.Request.Description,
-            publishedDate: request.Request.PublishedDate,
-            isbn: request.Request.Isbn,
-            coverImageUrl: request.Request.CoverImageUrl);
+            title: cmd.Request.Title,
+            price: cmd.Request.Price,
+            stockQuantity: cmd.Request.StockQuantity,
+            authors: bookAuthorLinks,
+            description: cmd.Request.Description,
+            publishedDate: cmd.Request.PublishedDate,
+            isbn: cmd.Request.Isbn,
+            coverImageUrl: cmd.Request.CoverImageUrl);
 
 
         await repositoryManager.Books.AddAsync(book, cancellationToken);
@@ -56,3 +66,20 @@ internal sealed class CreateBookCommandHandler(
         return book.Id.Value;
     }
 }
+
+
+//var authorIds = string.Join(',', cmd.Request.AuthorIds.Select(s => $"'{s}'").ToList());
+
+//if (!authorIds.Any())
+//    return Result.Failure<Guid>(AuthorErrors.AuthorIdRequired);
+
+//var sqlQuery = $"""
+//                SELECT AuthorId, CreatedDate, Name, Gender, Bio 
+//                FROM Authors
+//                WHERE AuthorId in ({authorIds})
+//                """;
+//var query = await repositoryManager
+//    .Authors
+//    .SelectSqlQueryListAsync<AuthorResponseFromSql>(sqlQuery);
+
+//var authors = query.Select(mapper.Map<Author>).ToList();

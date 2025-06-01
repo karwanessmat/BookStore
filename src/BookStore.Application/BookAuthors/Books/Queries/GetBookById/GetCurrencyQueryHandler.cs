@@ -1,7 +1,4 @@
-﻿// ───────────────────────────────────────────────────────────────
-//  GetBookByIdQueryHandler.cs   (BookStore.Application.Books.Queries.GetBookById)
-// ───────────────────────────────────────────────────────────────
-
+﻿
 using BookStore.Application.Abstractions.Interfaces.Persistence.Base;
 using BookStore.Application.Abstractions.Messaging;
 using BookStore.Contracts.Books;
