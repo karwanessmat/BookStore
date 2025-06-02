@@ -10,7 +10,7 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "https://localhost:7260/api/v1/users/login",
+					"name": "login",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -44,7 +44,7 @@
 					"response": []
 				},
 				{
-					"name": "https://localhost:7260/api/v1/users/logout",
+					"name": "logout",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -76,7 +76,7 @@
 					"response": []
 				},
 				{
-					"name": "https://localhost:7260/api/v1/users/register",
+					"name": "register",
 					"request": {
 						"auth": {
 							"type": "noauth"
