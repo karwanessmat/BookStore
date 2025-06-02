@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BookStore.Infrastructure.Shared.Persistence;
 
-public class NassAppContextFactory : IDesignTimeDbContextFactory<BookStoreAppContext>
+public class BookStoreAppContextFactory : IDesignTimeDbContextFactory<BookStoreAppContext>
 {
     public BookStoreAppContext CreateDbContext(string[] args)
     {

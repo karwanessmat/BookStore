@@ -3,7 +3,6 @@ using BookStore.Application.Abstractions.Messaging;
 using BookStore.Domain.BookAuthors.Errors;
 using BookStore.Domain.BookAuthors.ValueObjects;
 using BookStore.SharedKernel.Abstractions;
-using BookStore.SharedKernel.Abstractions.IServices;
 
 namespace BookStore.Application.BookAuthors.Authors.Commands.UpdateAuthor;
 

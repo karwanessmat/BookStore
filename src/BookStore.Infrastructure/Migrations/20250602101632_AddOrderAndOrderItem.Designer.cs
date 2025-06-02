@@ -4,6 +4,7 @@ using BookStore.Infrastructure.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Infrastructure.Migrations
 {
     [DbContext(typeof(BookStoreAppContext))]
-    partial class BookStoreAppContextModelSnapshot : ModelSnapshot
+    [Migration("20250602101632_AddOrderAndOrderItem")]
+    partial class AddOrderAndOrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,7 +117,7 @@ namespace BookStore.Infrastructure.Migrations
                         {
                             Id = new Guid("9c9155c6-582f-431e-9c42-1e24e9c6219e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "64bc1f9f-f460-41d3-9486-a056785f4eb9",
+                            ConcurrencyStamp = "a2feb81d-2277-427f-b06d-e75addb7ab62",
                             Email = "admin@ni.iq",
                             EmailConfirmed = true,
                             FullName = "Admin",
@@ -123,10 +126,10 @@ namespace BookStore.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@NI.IQ",
                             NormalizedUserName = "ADMIN@NI.IQ",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL855qRSLmxK1aLl1a95oe1C1GwUMwrueCwsHRdJD31bXyjeJRjPeW+9xfjqOXP5LQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF8DdtOlp+ic26wK8t/QvXz077vHsNh6IUs8LPKtz2r3rbCeZkPoHR6oB9HHz1ezLQ==",
                             PhoneNumber = "07500000011",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9d58a9da-e2e7-4d60-9001-6ab3ef06e1f9",
+                            SecurityStamp = "fb94f937-3137-4eed-8c66-58098755bcd7",
                             TwoFactorEnabled = false,
                             UserName = "admin@ni.iq"
                         });
@@ -186,22 +189,22 @@ namespace BookStore.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cecbfaa0-2629-464f-9950-d01610823867"),
-                            ConcurrencyStamp = "5bfc5c3c-d2c4-47a9-8e73-e7a9082bc6fe",
+                            Id = new Guid("8ed942f9-561d-4324-a494-cea5ef59c90f"),
+                            ConcurrencyStamp = "7d5924d3-57fa-43e9-be35-5090df02c6fc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("5765dd50-6d8f-4e49-a249-98de646669a3"),
-                            ConcurrencyStamp = "d763e239-0860-4fc2-a4b2-e78dbf0f0e84",
+                            Id = new Guid("e670cf64-e2f8-48c4-b91e-f0f0f56747f1"),
+                            ConcurrencyStamp = "395408e1-53f0-427e-baac-1469430f3812",
                             Name = "Staff",
                             NormalizedName = "STAFF"
                         },
                         new
                         {
-                            Id = new Guid("bc5f7ac7-11e4-4899-9710-3e1ce9964d68"),
-                            ConcurrencyStamp = "ca808efd-ea00-4315-811f-7e21d3e6e519",
+                            Id = new Guid("92c9ac0e-0999-431c-9e05-8a242c7b2634"),
+                            ConcurrencyStamp = "efd2f8b4-c77e-46ca-837b-0bc1da2162b9",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -380,9 +383,6 @@ namespace BookStore.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("OrderedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<decimal>("ShippingCost")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -547,7 +547,7 @@ namespace BookStore.Infrastructure.Migrations
                         new
                         {
                             UserId = new Guid("9c9155c6-582f-431e-9c42-1e24e9c6219e"),
-                            RoleId = new Guid("cecbfaa0-2629-464f-9950-d01610823867")
+                            RoleId = new Guid("8ed942f9-561d-4324-a494-cea5ef59c90f")
                         });
                 });
 
@@ -598,59 +598,6 @@ namespace BookStore.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("BookStore.Domain.Orders.Order", b =>
-                {
-                    b.OwnsOne("BookStore.Domain.Orders.ValueObjects.ShippingAddress", "ShippingAddress", b1 =>
-                        {
-                            b1.Property<Guid>("OrderId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.Property<string>("Country")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.Property<string>("FullName")
-                                .IsRequired()
-                                .HasMaxLength(150)
-                                .HasColumnType("nvarchar(150)");
-
-                            b1.Property<string>("Line1")
-                                .IsRequired()
-                                .HasMaxLength(250)
-                                .HasColumnType("nvarchar(250)");
-
-                            b1.Property<string>("Line2")
-                                .HasMaxLength(250)
-                                .HasColumnType("nvarchar(250)");
-
-                            b1.Property<string>("PostalCode")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)");
-
-                            b1.Property<string>("State")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
-                    b.Navigation("ShippingAddress")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookStore.Domain.ShoppingCards.Entities.CartItem", b =>

@@ -2,7 +2,6 @@
 using BookStore.Application.Abstractions.Interfaces.Persistence.Base;
 using BookStore.Application.Abstractions.Messaging;
 using BookStore.Contracts.ShoppingCards;
-using BookStore.Domain.ShoppingCards;
 using BookStore.SharedKernel.Abstractions;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;

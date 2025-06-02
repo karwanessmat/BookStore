@@ -5,7 +5,6 @@
 using BookStore.Application.BookAuthors.Books.Commands.CreateBook;
 using BookStore.Contracts.Books;
 using BookStore.Domain.BookAuthors;
-using BookStore.Domain.BookAuthors.Entities;
 using Mapster;
 
 namespace BookStore.Application.BookAuthors.Mapping;

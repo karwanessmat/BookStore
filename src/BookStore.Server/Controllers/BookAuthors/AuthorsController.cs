@@ -57,12 +57,12 @@ public class AuthorsController(ISender sender) : ControllerBase
         var result = await sender.Send(command, ct);
 
         if (result.IsFailure)
-            return BadRequest(result.Error); // 400 Bad Request
+            return BadRequest(result.Error); 
 
         return CreatedAtAction(
             nameof(GetAuthorById),
             new { id = result.Value, version = HttpContext.GetRequestedApiVersion()!.ToString() },
-            result.Value);                   // 201 Created + Location header
+            result.Value);               
     }
 
     #endregion

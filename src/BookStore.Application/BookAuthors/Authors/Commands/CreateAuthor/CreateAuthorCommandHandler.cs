@@ -1,12 +1,8 @@
 ﻿using BookStore.Application.Abstractions.Interfaces.Persistence.Base;
 using BookStore.Application.Abstractions.Messaging;
-using BookStore.Application.BookAuthors.Books.Commands.CreateBook;
 using BookStore.Domain.BookAuthors;
-using BookStore.Domain.BookAuthors.Errors;
-using BookStore.Domain.BookAuthors.ValueObjects;
 using BookStore.SharedKernel.Abstractions;
 using BookStore.SharedKernel.Abstractions.IServices;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Application.BookAuthors.Authors.Commands.CreateAuthor;
 

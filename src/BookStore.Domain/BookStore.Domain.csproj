@@ -30,6 +30,7 @@
 	<ItemGroup>
 	  <Folder Include="ApplicationUsers\Events\" />
 	  <Folder Include="BookAuthors\Events\" />
+	  <Folder Include="Orders\Events\" />
 	  <Folder Include="ShoppingCards\Events\" />
 	</ItemGroup>
 

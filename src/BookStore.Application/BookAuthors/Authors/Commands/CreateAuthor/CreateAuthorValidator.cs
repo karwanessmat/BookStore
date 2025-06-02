@@ -1,5 +1,4 @@
-﻿using BookStore.Application.BookAuthors.Books.Commands.CreateBook;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace BookStore.Application.BookAuthors.Authors.Commands.CreateAuthor;
 internal sealed class CreateAuthorValidator : AbstractValidator<CreateAuthorCommand>

@@ -11,12 +11,8 @@ using Serilog;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-
-
-
 
 
 builder.AddServer();
@@ -36,8 +32,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 
-app.UseDefaultFiles(); // This will look for default files such as index.html
-app.UseStaticFiles();  // This serves static files from wwwroot
+app.UseDefaultFiles(); 
+app.UseStaticFiles(); 
 
 
 
@@ -60,36 +56,30 @@ if (app.Environment.IsDevelopment())
 
 
 
-    // automate using update-database command 
     app.ApplyMigrations();
 
-   // app.SeedContractor();
 }
 
 
 
-app.UseCors("AllowAllOrigins"); // Apply CORS after custom OPTIONS middleware
+app.UseCors("AllowAllOrigins"); 
 app.UseCustomMiddleware();
 
-// it is used to check the validation of jwt 
-//app.UseJwtDiagnosticMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 
 
-// Configure the endpoints
 app.MapControllers()
     .WithOpenApi()
     .WithTags("BookStore");
 
-// Document health checks with authorization
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
     Predicate = _ => true
-});/*.RequireAuthorization("AdminOnly")*/;  // Apply the "AdminOnly" policy
+});
 
 
 

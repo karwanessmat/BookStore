@@ -5,7 +5,6 @@ using BookStore.SharedKernel.Abstractions;
 namespace BookStore.Domain.BookAuthors;
 
 
-// Book.cs
 public sealed class Book : AggregateRoot<BookId, Guid>
 {
     public DateTimeOffset CreatedDate { get; }
@@ -19,7 +18,6 @@ public sealed class Book : AggregateRoot<BookId, Guid>
 
     public bool IsAvailable => StockQuantity > 0;
 
-    // Domain stores only AuthorIds
     private readonly List<Author> _authors = new();
     public IReadOnlyCollection<Author> Authors => _authors.AsReadOnly();
 
@@ -62,11 +60,8 @@ public sealed class Book : AggregateRoot<BookId, Guid>
             description, publishedDate, isbn, coverImageUrl, id);
 
 
-    // convenience
     public void AddAuthor(Author id) => _authors.Add(id);
     public void RemoveAuthor(Author id) => _authors.Remove(id);
-
-    // Book.cs  (add this method inside the Book class)
 
     public void Update(
         string newTitle,
@@ -76,9 +71,8 @@ public sealed class Book : AggregateRoot<BookId, Guid>
         DateTimeOffset? newPublishedDate,
         string? newIsbn,
         string? newCoverImageUrl,
-        IEnumerable<Author>? newAuthors = null)      // optional: replace authors
+        IEnumerable<Author>? newAuthors = null)      
     {
-        // basic validation
         if (string.IsNullOrWhiteSpace(newTitle))
             throw new ArgumentException("Title cannot be empty.", nameof(newTitle));
         if (newPrice < 0) throw new ArgumentException("Price must be ≥ 0.", nameof(newPrice));
@@ -92,7 +86,6 @@ public sealed class Book : AggregateRoot<BookId, Guid>
         Isbn = newIsbn?.Trim();
         CoverImageUrl = newCoverImageUrl?.Trim();
 
-        // if caller sent a new author list, replace it (distinct to avoid dups)
         if (newAuthors is not null)
         {
             if (!newAuthors.Any())
@@ -103,4 +96,11 @@ public sealed class Book : AggregateRoot<BookId, Guid>
         }
     }
 
+    public void DecreaseStock(int by)
+    {
+        if (by <= 0)
+            throw new ArgumentOutOfRangeException(nameof(by));
+
+        StockQuantity = Math.Max(0, StockQuantity - by);
+    }
 }
