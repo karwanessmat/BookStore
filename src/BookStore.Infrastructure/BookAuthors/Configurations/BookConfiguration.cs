@@ -27,6 +27,7 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.Property(b => b.PublishedDate);
         builder.Property(b => b.Isbn).HasMaxLength(20);
         builder.Property(b => b.CoverImageUrl).HasMaxLength(1000);
+        builder.Property(b => b.IsAvailable).HasDefaultValueSql("1");
 
 
 

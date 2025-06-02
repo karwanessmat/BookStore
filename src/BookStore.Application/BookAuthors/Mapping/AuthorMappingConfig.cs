@@ -21,7 +21,7 @@ public class AuthorMappingConfig : IRegister
             .IgnoreNullValues(true);
 
         config.NewConfig<Author, AuthorResponse>()
-            .Map(dest => dest.AuthorId, src => src.Id.Value)
+            .Map(dest => dest.AuthorId, src => src.Id.Value.ToString())
             .Map(dest => dest.Name, src => src.Name)
             .Map(dest => dest.Gender, src => src.Gender)
             .Map(dest => dest.Bio, src => src.Bio)

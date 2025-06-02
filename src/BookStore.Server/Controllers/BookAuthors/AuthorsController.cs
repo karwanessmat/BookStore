@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookStore.Server.Controllers.BookAuthors;
 
 [ApiController]
+[Authorize]
 [ApiVersion(ApiVersions.V1)]
 [Route("api/v{version:apiVersion}/authors")]
 public class AuthorsController(ISender sender) : ControllerBase
@@ -48,7 +49,6 @@ public class AuthorsController(ISender sender) : ControllerBase
 
     /// <summary>Create a new author.</summary>
     [HttpPost]
-    [Authorize]
     public async Task<IActionResult> Create(
         [FromBody] CreateAuthorRequest request,
         CancellationToken ct)
@@ -70,7 +70,6 @@ public class AuthorsController(ISender sender) : ControllerBase
 
     /// <summary>Update an existing author.</summary>
     [HttpPut("{id:guid}")]
-    [Authorize]
     public async Task<IActionResult> Update(
         Guid id,
         [FromBody] UpdateAuthorRequest request,
@@ -92,7 +91,6 @@ public class AuthorsController(ISender sender) : ControllerBase
 
     /// <summary>Delete an author permanently.</summary>
     [HttpDelete("{id:guid}")]
-    [Authorize]
     public async Task<IActionResult> Delete(
         Guid id,
         CancellationToken ct)

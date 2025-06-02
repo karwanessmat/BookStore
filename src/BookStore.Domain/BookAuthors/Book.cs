@@ -16,7 +16,7 @@ public sealed class Book : AggregateRoot<BookId, Guid>
     public string? Isbn { get; private set; }
     public string? CoverImageUrl { get; private set; }
 
-    public bool IsAvailable => StockQuantity > 0;
+    public bool IsAvailable { get; private set; }
 
     private readonly List<Author> _authors = new();
     public IReadOnlyCollection<Author> Authors => _authors.AsReadOnly();
@@ -43,6 +43,7 @@ public sealed class Book : AggregateRoot<BookId, Guid>
         Isbn = isbn?.Trim();
         CoverImageUrl = cover?.Trim();
         _authors = authors.ToList();
+        IsAvailable = stock > 0;
     }
 
     public static Book Create(
@@ -56,8 +57,11 @@ public sealed class Book : AggregateRoot<BookId, Guid>
         string? isbn = null,
         string? coverImageUrl = null,
         BookId? id = null)
-        => new(created, title, price, stockQuantity, authors,
+    {
+        var result = new Book(created, title, price, stockQuantity, authors,
             description, publishedDate, isbn, coverImageUrl, id);
+        return result;
+    }
 
 
     public void AddAuthor(Author id) => _authors.Add(id);
@@ -85,6 +89,7 @@ public sealed class Book : AggregateRoot<BookId, Guid>
         PublishedDate = newPublishedDate;
         Isbn = newIsbn?.Trim();
         CoverImageUrl = newCoverImageUrl?.Trim();
+        IsAvailable = newStockQuantity > 0;
 
         if (newAuthors is not null)
         {
@@ -102,5 +107,6 @@ public sealed class Book : AggregateRoot<BookId, Guid>
             throw new ArgumentOutOfRangeException(nameof(by));
 
         StockQuantity = Math.Max(0, StockQuantity - by);
+        IsAvailable = StockQuantity > 0;
     }
 }

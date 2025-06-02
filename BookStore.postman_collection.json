@@ -1,0 +1,520 @@
+{
+	"info": {
+		"_postman_id": "46bc44ab-4cbb-41da-a798-4c7532e0cef1",
+		"name": "BookStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7544400"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "https://localhost:7260/api/v1/users/login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"karwan.essmat@gmail.com\",\r\n  \"password\": \"SecureP@ssw0rd!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7260/api/v1/users/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://localhost:7260/api/v1/users/logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiJhN2JkZDljNS02NTU1LTRkMjYtODQ3Zi05OTc0NmJhYTMzNTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsIm5iZiI6MTc0ODczMjUzMSwiZXhwIjoxNzQ4NzM2MTMxLCJpc3MiOiJOYXNzQXBwIiwiYXVkIjoiTmFzc0FwcCJ9.fSasxH7t7f4pc1ZkXYsQLpIUtLjExIXOREI01tFNR4E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7260/api/v1/users/logout",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://localhost:7260/api/v1/users/register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"FullName\": \"Karwan Essmat\",\r\n  \"Email\": \"karwan.essmat@gmail.com\",\r\n  \"PhoneNumber\": \"+9647701234567\",\r\n  \"Password\": \"SecureP@ssw0rd!\",\r\n  \"ConfirmPassword\": \"SecureP@ssw0rd!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7260/api/v1/users/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "GetBooks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1MTBlNjZjMy03MjgzLTQ4MmQtOTAwYS01ZDg5NTFlYmQ3YjUiLCJuYmYiOjE3NDg4NjQxNjEsImV4cCI6MTc0ODg2Nzc2MSwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.1-t7ivUqXEcuFTxxrewWY6dBs2JHRHLzpqJb6HgMwOw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:7260/api/v1/books?SortOrder=AuthorDescending",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							],
+							"query": [
+								{
+									"key": "SearchTerm",
+									"value": "Pride",
+									"disabled": true
+								},
+								{
+									"key": "Author",
+									"value": "Jane",
+									"disabled": true
+								},
+								{
+									"key": "SortOrder",
+									"value": "AuthorDescending"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateBook",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1MTBlNjZjMy03MjgzLTQ4MmQtOTAwYS01ZDg5NTFlYmQ3YjUiLCJuYmYiOjE3NDg4NjQxNjEsImV4cCI6MTc0ODg2Nzc2MSwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.1-t7ivUqXEcuFTxxrewWY6dBs2JHRHLzpqJb6HgMwOw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Adventures of Huckleberry Finn\",\r\n  \"price\": 7.99,\r\n  \"stockQuantity\": 120,\r\n  \"authorIds\": [\r\n    \"50D74132-1D20-46F4-BD01-8BB7AB81D752\"\r\n  ],\r\n  \"description\": \"A young boy’s adventures along the Mississippi River.\",\r\n  \"publishedDate\": \"1884-12-10T00:00:00Z\",\r\n  \"isbn\": \"9780143107323\",\r\n  \"coverImageUrl\": \"https://example.com/covers/huckleberry-finn.jpg\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7260/api/v1/books",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1NjNiZDkxMi1hYjFiLTRkMjAtYmVjMy1jYTQxMTUyYTEzZjkiLCJuYmYiOjE3NDg4NjI0NjgsImV4cCI6MTc0ODg2NjA2OCwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.DGNdFtC4gSxUkYJCK4py8hvl3JOhijYVnXpKv1tJhHc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7260/api/v1/books/6a043436-a30b-43fc-ac07-2a80527f2d5f",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"6a043436-a30b-43fc-ac07-2a80527f2d5f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authors",
+			"item": [
+				{
+					"name": "CreateAuthor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiJhNDA5NDU4Ny1kZmU4LTQ5YjgtYTQ5OC0zYzM5MjljNzdlMzgiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsIm5iZiI6MTc0ODc3NjAzOCwiZXhwIjoxNzQ4Nzc5NjM4LCJpc3MiOiJOYXNzQXBwIiwiYXVkIjoiTmFzc0FwcCJ9.S5QLl8zGS9WvYALbS732iqlpUyseOFzjUSLLwvqLCcI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Agatha Christie\",\r\n  \"gender\": 2,\r\n  \"bio\": \"English writer known for detective novels featuring Hercule Poirot and Miss Marple.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7260/api/v1/authors",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1MTBlNjZjMy03MjgzLTQ4MmQtOTAwYS01ZDg5NTFlYmQ3YjUiLCJuYmYiOjE3NDg4NjQxNjEsImV4cCI6MTc0ODg2Nzc2MSwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.1-t7ivUqXEcuFTxxrewWY6dBs2JHRHLzpqJb6HgMwOw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7260/api/v1/authors",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "GetCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1NjNiZDkxMi1hYjFiLTRkMjAtYmVjMy1jYTQxMTUyYTEzZjkiLCJuYmYiOjE3NDg4NjI0NjgsImV4cCI6MTc0ODg2NjA2OCwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.DGNdFtC4gSxUkYJCK4py8hvl3JOhijYVnXpKv1tJhHc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7260/api/v1/cart",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1MTBlNjZjMy03MjgzLTQ4MmQtOTAwYS01ZDg5NTFlYmQ3YjUiLCJuYmYiOjE3NDg4NjQxNjEsImV4cCI6MTc0ODg2Nzc2MSwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.1-t7ivUqXEcuFTxxrewWY6dBs2JHRHLzpqJb6HgMwOw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": \"56de3d03-c77d-44f5-8e17-a90a3d83a6a7\",\r\n  \"quantity\": 113\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7260/api/v1/cart/items",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1M2E2MzU1Yi04MDNiLTQ5MmMtOGU0Ny05ZmE0YTYyOGU3ZTkiLCJuYmYiOjE3NDg4MTE5MTgsImV4cCI6MTc0ODgxNTUxOCwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.Mk8lPiP_tQXwUILTeBg--iB4f91Px_7oew5gNLjMd2c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7260/api/v1/cart/items/e0334791-ddfa-43b6-ad2f-92bfd5e77015",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"items",
+								"e0334791-ddfa-43b6-ad2f-92bfd5e77015"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "checkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1NjNiZDkxMi1hYjFiLTRkMjAtYmVjMy1jYTQxMTUyYTEzZjkiLCJuYmYiOjE3NDg4NjI0NjgsImV4cCI6MTc0ODg2NjA2OCwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.DGNdFtC4gSxUkYJCK4py8hvl3JOhijYVnXpKv1tJhHc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\":   \"Karwan E. Othman\",\r\n  \"line1\":      \"123 Main St.\",\r\n  \"line2\":      \"Apartment 5B\",\r\n  \"city\":       \"Erbil\",\r\n  \"state\":      \"Erbil Governorate\",\r\n  \"postalCode\": \"44001\",\r\n  \"country\":    \"Iraq\",\r\n  \"shippingCost\": 4.99\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7260/api/v1/orders/checkout",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OrderList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWMyNzMzOS02YjViLTQyZWEtYWM3MS01ZTAzM2I0MTVlNTgiLCJlbWFpbCI6Imthcndhbi5lc3NtYXRAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkthcndhbiBFc3NtYXQiLCJqdGkiOiI1NjNiZDkxMi1hYjFiLTRkMjAtYmVjMy1jYTQxMTUyYTEzZjkiLCJuYmYiOjE3NDg4NjI0NjgsImV4cCI6MTc0ODg2NjA2OCwiaXNzIjoiTmFzc0FwcCIsImF1ZCI6Ik5hc3NBcHAifQ.DGNdFtC4gSxUkYJCK4py8hvl3JOhijYVnXpKv1tJhHc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\":   \"Karwan E. Othman\",\r\n  \"line1\":      \"123 Main St.\",\r\n  \"line2\":      \"Apartment 5B\",\r\n  \"city\":       \"Erbil\",\r\n  \"state\":      \"Erbil Governorate\",\r\n  \"postalCode\": \"44001\",\r\n  \"country\":    \"Iraq\",\r\n  \"shippingCost\": 4.99\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7260/api/v1/orders",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7260",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
